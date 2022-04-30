@@ -11,7 +11,6 @@ let computerPoints = 0;
        "paper",
         "scissor"
       ];
-      
       computerSelection = options[Math.floor(Math.random() * (options.length))];
 }
 
@@ -52,16 +51,14 @@ function playRound(computerSelection,playerSelection){
 }
 }
 
-/*function game(){
-    
+function game(){
     for (let i = 0; i < 5; i++) {
-        
-        
-
+        computerPlay();
+        let playerSelectionDirect = prompt('Choose between Rock, Paper or Scissor');
+        let playerSelection = playerSelectionDirect.toLowerCase();
         playRound(computerSelection,playerSelection);
         console.log(playerPoints)
      }
     
-}*/
-
-playRound(computerSelection,playerSelection);
+}
+game();
