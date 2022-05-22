@@ -1,9 +1,25 @@
 
+let playerPoints = 0;
+let computerPoints = 0;
+
 // Creates the <div> position were later the results are shown
-var container = document.querySelector('#container');
-var content = document.createElement('div');
-content.textContent = 'Lets play!';
-container.appendChild(content);    
+const container = document.querySelector('#container');
+const result = document.createElement('div');
+result.textContent = 'Lets play!';
+container.appendChild(result);    
+
+
+const playerPointsText = document.createElement('div');
+playerPointsText.textContent = 'Player Points: ';
+container.appendChild(playerPointsText);    
+
+const computerPointsText = document.createElement('div');
+computerPointsText.textContent = 'Computer Points: ';
+container.appendChild(computerPointsText);    
+
+const winerAnnouncement = document.createElement('div');
+winerAnnouncement.textContent = '';
+container.appendChild(winerAnnouncement);    
 
 // buttons is a node list. It looks and acts much like an array
 const buttons = document.querySelectorAll('button');
@@ -13,7 +29,7 @@ buttons.forEach((button) => {
 
   // and for each one we add a 'click' listener
   button.addEventListener('click', () => {
-    
+    winerAnnouncement.textContent = ''
     function computerPlay(){
     
         let options = [
@@ -25,8 +41,6 @@ buttons.forEach((button) => {
     }
     let computerSelection;
     let playerSelection;
-    let playerPoints = 0;
-    let computerPoints = 0;
     
     computerPlay();
     playerSelection = button.id;
@@ -34,54 +48,46 @@ buttons.forEach((button) => {
     function playRound(computerSelection,playerSelection){
         switch(true){
         case computerSelection === playerSelection:
-            content.textContent = 'It is a tie!';
+            result.textContent = 'It is a tie!';
             break
         case (computerSelection === "rock" && playerSelection === "paper"):
-            content.textContent = 'You Win! Paper beats rock';
+            result.textContent = 'You Win! Paper beats rock';
             playerPoints = playerPoints + 1;
             break
         case (computerSelection === "rock" && playerSelection === "scissor"):
-            content.textContent = 'You Lose! :( Rock beats scissor';
+            result.textContent = 'You Lose! :( Rock beats scissor';
             computerPoints = computerPoints + 1;
             break
         case (computerSelection === "paper" && playerSelection === "rock"):
-            content.textContent = 'You Lose! :( Paper beats Rock';
+            result.textContent = 'You Lose! :( Paper beats Rock';
             computerPoints = computerPoints + 1;
             break
         case (computerSelection === "paper" && playerSelection === "scissor"):
-            content.textContent = 'You Win! Scissor beats paper';
+            result.textContent = 'You Win! Scissor beats paper';
             playerPoints = playerPoints + 1;
             break
         case (computerSelection === "scissor" && playerSelection === "paper"):
-            content.textContent = 'You Lose :( Scissor beats paper';
+            result.textContent = 'You Lose :( Scissor beats paper';
             computerPoints = computerPoints + 1;
             break
         case (computerSelection === "scissor" && playerSelection === "rock"):
-            content.textContent = 'You Win! Rock beats Scissor';
+            result.textContent = 'You Win! Rock beats Scissor';
             playerPoints = playerPoints + 1;
             break
     }
+    playerPointsText.textContent = `Player Points: ${playerPoints}`;
+    computerPointsText.textContent = `Computer Points: ${computerPoints}`;
     
+    if (playerPoints == 5){
+        winerAnnouncement.textContent = 'Congratulations! You WIN the game!';
+        playerPoints = 0;
+        computerPoints = 0;
+    } else if (computerPoints == 5){
+            winerAnnouncement.textContent = 'I am Sorry :( You LOSE the game!';
+            playerPoints = 0;
+            computerPoints = 0;  
+        }
     }
     playRound(computerSelection,playerSelection) 
   });
 });
-
-
-
-
-
-
-
-
-//function game(){
-    //for (let i = 0; i < 5; i++)//
-        //computerPlay();
-        //let playerSelectionDirect = prompt('Choose between Rock, Paper or Scissor');
-       // let playerSelection = playerSelectionDirect.toLowerCase();
-        //playRound(computerSelection,playerSelection);
-        //console.log(playerPoints)
-     //}
-    
-
-//game();
